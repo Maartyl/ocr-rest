@@ -10,7 +10,6 @@ import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.IOException
-import java.lang.Exception
 import java.nio.file.*
 import java.rmi.UnexpectedException
 import kotlin.concurrent.thread
@@ -33,7 +32,7 @@ inline fun <T> safely(block: () -> T) {
 fun main() {
     GlobalScope.launch{
         for (e in errs) safely {
-            System.err.println(e.printStackTrace())
+            e.printStackTrace()
             delay(100) //only process 10 errors/s: prevent some loop from exploding by quickly throwing over and over
         }
     }
@@ -85,6 +84,7 @@ fun watchListen() {
     }
 
     listen(m)
+    watcher.join() //useless line, as listen shold never return
 }
 
 fun testOcrSpace() {
