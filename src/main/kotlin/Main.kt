@@ -88,8 +88,7 @@ fun watchListen() {
 }
 
 fun testOcrSpace() {
-    val imgPath =
-        "C:\\Users\\chmel\\Desktop\\screenshot_tmp\\2020-03-09 00_01_06-ＮＡＫＥＤ☆ＰＬＵＳver1.0 　　　　 F4_画面変更 _ F8_情報変更.png"
+    val imgPath = "image.png"
 
     runBlocking {
         val j = ocrSpaceRaw(Path.of(imgPath))
@@ -237,10 +236,7 @@ fun ocrSpaceRequest(imgPath: Path): Request {
 }
 
 suspend fun ocrSpaceRaw(imgPath: Path): JsonNode {
-
     val response: Response = okClient.newCall(ocrSpaceRequest(imgPath)).await()
-
-    //TODO: parse response
 
     val b = response.body ?: throw UnexpectedException("ocr response: no body")
 
